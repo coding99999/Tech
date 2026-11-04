@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technovanza 12.0</title>
+<meta name="description" content="Technovanza 12.0 — Interschool Tech Festival, Bal Bharati Public School, Gangaram Hospital Marg, New Delhi. 5 November 2026.">
+<link rel="icon" type="image/png" href="/assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050509; --bg2:#0a0a12; --ink:#d1d6e3; --dim:#c0ccf4; --line:rgba(209,214,227,.12);
+  --accent:#4de1ff; --accent2:#a06bff; --hot:#ff5c8a;
+  --display:'Bebas Neue',Impact,sans-serif; --body:'DM Sans',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;overflow-x:hidden}
+a{color:inherit}
+canvas#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+main,header,footer{position:relative;z-index:2}
+.mono{font-family:var(--mono);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;background:transparent;transition:background .4s,backdrop-filter .4s,box-shadow .4s,border-radius .4s,margin .4s,padding .4s}
+nav.scrolled{margin:10px 3vw;padding:14px 28px;border-radius:16px;background:rgba(5,5,9,.75);backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);box-shadow:0 0 0 1px rgba(77,225,255,.1),0 8px 40px rgba(0,0,0,.5)}
+nav.menu-open.scrolled{backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .4s,box-shadow .4s,border-radius .4s,margin .4s,padding .4s}
+nav .logo{font-family:var(--display);font-size:1.5rem;letter-spacing:.12em;text-decoration:none;display:flex;align-items:center;gap:10px}
+nav .logo b{color:var(--accent);font-weight:400}
+nav .logo #navmark{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;flex-shrink:0}
+nav .logo #navmark img{display:block;width:100%;height:100%;object-fit:contain}
+nav ul{display:flex;gap:28px;list-style:none}
+nav ul a{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--dim);transition:color .2s,transform .5s cubic-bezier(.2,.9,.3,1);display:inline-block}
+nav ul a:hover{color:var(--accent)}
+.menu-toggle{display:none}
+.mobile-nav-backdrop{display:none}
+/* hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 5vw 80px}
+.hero .eyebrow{margin-bottom:18px}
+.hero h1{font-family:var(--display);font-weight:400;line-height:.86;font-size:clamp(4rem,17vw,15rem);letter-spacing:.02em;
+  background:linear-gradient(180deg,#fff 20%,var(--accent) 80%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 40px rgba(77,225,255,.25))}
+.hero h1 span{display:block;font-size:.42em;letter-spacing:.5em;margin-top:.1em;background:none;color:var(--ink);-webkit-text-fill-color:var(--ink);opacity:.9}
+.hero p.sub{max-width:560px;margin:30px auto 0;color:var(--dim);font-weight:300;font-size:1.1rem}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:40px}
+.meta div{border:1px solid var(--line);padding:12px 20px;border-radius:999px;font-size:.9rem;backdrop-filter:blur(6px);background:rgba(10,10,18,.5)}
+.meta div b{color:var(--accent);font-weight:500;font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;margin-right:8px}
+.cta{display:inline-block;margin-top:44px;padding:16px 38px;background:var(--accent);color:#031015;font-family:var(--mono);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;font-weight:500;border-radius:2px;transition:transform .2s,box-shadow .2s}
+.cta:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(77,225,255,.35)}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-hint i{display:block;width:1px;height:46px;background:linear-gradient(var(--accent),transparent);animation:drip 2s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* sections */
+section{padding:120px 5vw;max-width:1280px;margin:0 auto}
+.sec-head{margin-bottom:56px}
+.sec-head h2{font-family:var(--display);font-weight:400;font-size:clamp(3rem,8vw,7rem);line-height:.95;letter-spacing:.03em}
+.sec-head h2 em{font-style:normal;color:var(--accent)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* about / stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:48px}
+.stats div{background:var(--bg2);padding:34px 24px}
+.stats strong{display:block;font-family:var(--display);font-weight:400;font-size:3.6rem;line-height:1;color:var(--accent)}
+.stats span{color:var(--dim);font-size:.9rem}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.filters button{background:none;border:1px solid var(--line);color:var(--dim);padding:9px 18px;border-radius:999px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.filters button:hover{color:var(--ink);border-color:var(--dim)}
+.filters button.on{background:var(--accent);color:#031015;border-color:var(--accent)}
+
+/* event cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{position:relative;overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,rgba(18,18,30,.9),rgba(8,8,14,.9));padding:30px 26px 26px;min-height:340px;display:flex;flex-direction:column;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:transform .35s,border-color .35s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--c) 28%,transparent),transparent 55%);opacity:0;transition:opacity .35s}
+.card:hover{transform:translateY(-6px);border-color:var(--c)}
+.card:hover::before{opacity:1}
+.card>*{position:relative}
+.card .no{font-family:var(--display);font-size:5.5rem;line-height:.8;color:transparent;-webkit-text-stroke:1px var(--c);opacity:.7}
+.card h3{font-family:var(--display);font-weight:400;font-size:2.3rem;line-height:1;letter-spacing:.04em;margin:22px 0 6px}
+.card .tag{color:var(--dim);font-size:.92rem;font-weight:300;flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);padding:5px 10px;border-radius:999px;color:var(--ink)}
+.card .open{margin-top:18px;font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+
+/* glance table */
+.table-wrap{overflow-x:auto;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:18px 22px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:400;background:var(--bg2)}
+tbody tr{cursor:pointer;transition:background .2s}
+tbody tr:hover{background:rgba(77,225,255,.06)}
+td:first-child{font-family:var(--display);font-size:1.5rem;letter-spacing:.05em}
+tr:last-child td{border-bottom:0}
+
+/* guidelines */
+.gl{display:grid;grid-template-columns:minmax(260px,380px) 1fr;gap:clamp(30px,6vw,90px);align-items:start}
+.gl-side{position:sticky;top:110px}
+.gl-side h2{font-family:var(--display);font-weight:400;font-size:clamp(3rem,6.5vw,6rem);line-height:.95;letter-spacing:.03em}
+.gl-side h2 em{font-style:normal;color:var(--accent)}
+.gl-side p.lead{color:var(--dim);font-weight:300;margin:18px 0 28px}
+.keys{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.keys div{background:var(--bg2);padding:16px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.keys b{font-family:var(--display);font-weight:400;font-size:1.7rem;color:var(--accent);letter-spacing:.04em}
+.gl-side .cta{margin-top:26px}
+.gl-main{counter-reset:r;border-left:1px solid var(--line)}
+.gl-group{padding:0 0 38px 34px;position:relative}
+.gl-group::before{content:"";position:absolute;left:-5px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+.gl-group h3{font-family:var(--display);font-weight:400;font-size:2.1rem;letter-spacing:.08em;line-height:1;margin-bottom:6px}
+.gl-group h3 small{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:var(--dim);margin-left:10px;text-transform:uppercase}
+.gl-group ol{list-style:none}
+.gl-group li{counter-increment:r;display:grid;grid-template-columns:44px 1fr;gap:6px;padding:14px 0;border-bottom:1px solid var(--line)}
+.gl-group li:last-child{border-bottom:0}
+.gl-group li::before{content:counter(r,decimal-leading-zero);font-family:var(--mono);font-size:.75rem;color:var(--accent);padding-top:.3em}
+.gl-group a{color:var(--accent)}
+
+/* emblem / hero art */
+.emblem{width:min(38vh,360px);aspect-ratio:410/389;position:relative;margin-bottom:6px;will-change:transform}
+.emblem img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 28px rgba(255,40,50,.25)) drop-shadow(0 0 40px rgba(40,140,255,.25))}
+.emblem svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 28px rgba(255,40,50,.25)) drop-shadow(0 0 40px rgba(40,140,255,.25))}
+.emblem::after{content:"";position:absolute;inset:-25%;background:radial-gradient(circle,rgba(77,160,255,.18),transparent 60%);z-index:-1;animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.4;transform:scale(1.08)}}
+.float{animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.draw{stroke-dasharray:1;stroke-dashoffset:1}
+.ready .draw{animation:draw 1.8s cubic-bezier(.6,.1,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.pop{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3)}
+.ready .pop{animation:pop .7s cubic-bezier(.3,1.6,.5,1) forwards;animation-delay:var(--d,0s)}
+@keyframes pop{to{opacity:1;transform:none}}
+.flow{stroke-dasharray:.07 .93;stroke-dashoffset:1;opacity:0}
+.ready .flow{animation:flow 2.6s linear infinite;animation-delay:var(--d,0s);opacity:1}
+@keyframes flow{to{stroke-dashoffset:0}}
+.ring{transform-box:fill-box;transform-origin:center}
+.ready .ring{animation:ringp 3.2s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes ringp{50%{filter:brightness(1.6) drop-shadow(0 0 6px #4de1ff)}}
+.ready .wifi{animation:wifi 2s ease-in-out infinite;animation-delay:var(--d,0s)}
+.wifi{opacity:.25}
+@keyframes wifi{0%,100%{opacity:.25}35%{opacity:1}}
+.ready .headline{animation:redglow 3.5s ease-in-out infinite}
+@keyframes redglow{50%{filter:drop-shadow(0 0 10px #ff2a35)}}
+.hero h1{font-size:clamp(3.4rem,11vw,10rem)}
+.line-in{overflow:hidden;display:inline-block}
+.hero .rise{opacity:0;transform:translateY(30px)}
+.ready .hero .rise{animation:rise2 1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,.8s)}
+@keyframes rise2{to{opacity:1;transform:none}}
+.hero{padding-top:100px;padding-bottom:70px}
+nav .logo{display:flex;align-items:center;gap:10px}
+nav .logo svg{width:34px;height:auto}
+
+/* loader */
+.loader{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 35%,rgba(77,225,255,.18),transparent 58%),
+             radial-gradient(ellipse at 85% 85%,rgba(160,107,255,.16),transparent 48%),
+             linear-gradient(135deg,#0c1220 0%,#080a14 52%,#10091b 100%);
+  transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.loader.done{opacity:0;transform:scale(1.04);pointer-events:none}
+.loader-shell{width:min(220px,calc(100vw - 48px));display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;animation:loader-enter .6s ease both}
+@keyframes loader-enter{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.loader-mark{position:relative;width:120px;height:120px;display:grid;place-items:center}
+.loader-mark::before,.loader-mark::after{content:"";position:absolute;inset:0;border-radius:50%}
+.loader-mark::before{border:1px solid rgba(77,225,255,.2)}
+.loader-mark::after{border:2px solid transparent;border-top-color:var(--accent);border-right-color:rgba(160,107,255,.65);animation:loader-spin 1.4s linear infinite}
+@keyframes loader-spin{to{transform:rotate(360deg)}}
+.loader .emblem{width:84px;height:80px;aspect-ratio:auto;margin:0;filter:drop-shadow(0 0 18px rgba(77,225,255,.2));animation:loader-pulse 1.8s ease-in-out infinite}
+@keyframes loader-pulse{50%{transform:scale(1.06)}}
+.loader .emblem img{filter:none}
+.loader-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.loader .count{font-family:var(--display);font-size:2.4rem;letter-spacing:.08em;color:var(--accent);line-height:1}
+.loader .bar{width:100%;height:1px;background:rgba(209,214,227,.1);overflow:hidden}
+.loader .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));box-shadow:0 0 10px var(--accent);transition:width .08s linear}
+
+
+/* ===== background animation layers ===== */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aurora i{position:absolute;width:42vmax;height:42vmax;border-radius:50%;filter:blur(70px);opacity:.28;mix-blend-mode:screen;will-change:transform}
+.aurora i:nth-child(1){background:hsl(var(--h1,195) 100% 55%);left:-15vmax;top:-10vmax;animation:dr1 26s ease-in-out infinite alternate}
+.aurora i:nth-child(2){background:hsl(var(--h2,265) 90% 60%);right:-18vmax;top:25vh;animation:dr2 32s ease-in-out infinite alternate}
+.aurora i:nth-child(3){background:hsl(var(--h3,350) 90% 58%);left:20vw;bottom:-28vmax;opacity:.2;animation:dr3 38s ease-in-out infinite alternate}
+@keyframes dr1{to{transform:translate(30vw,25vh) scale(1.25)}}
+@keyframes dr2{to{transform:translate(-35vw,-15vh) scale(.85)}}
+@keyframes dr3{to{transform:translate(25vw,-20vh) scale(1.3)}}
+.gridfloor{position:fixed;left:-50%;right:-50%;bottom:-8vh;height:60vh;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(77,225,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(77,225,255,.22) 1px,transparent 1px);
+  background-size:70px 70px;transform:perspective(500px) rotateX(62deg);transform-origin:center bottom;
+  -webkit-mask-image:linear-gradient(transparent,#000 85%);mask-image:linear-gradient(transparent,#000 85%);
+  opacity:.35}
+.spot{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(420px circle at var(--sx,50%) var(--sy,40%),rgba(77,225,255,.09),transparent 60%)}
+.scan{position:fixed;top:0;left:0;right:0;height:140px;z-index:1;pointer-events:none;background:linear-gradient(transparent,rgba(77,225,255,.035),transparent);transform:translateY(-140px);will-change:transform;animation:scan 9s linear infinite}
+@keyframes scan{to{transform:translateY(100vh)}}
+.sec-head h2,.gl-side h2,.register h2{background-size:200% auto}
+section{position:relative}
+section::before{content:"";position:absolute;left:5vw;right:5vw;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+section.seen::before{transform:scaleX(1)}
+.card{animation:cardin .8s both}
+@keyframes cardin{from{opacity:0;transform:translateY(30px)}}
+.card:nth-child(2){animation-delay:.08s}.card:nth-child(3){animation-delay:.16s}.card:nth-child(4){animation-delay:.24s}.card:nth-child(5){animation-delay:.32s}.card:nth-child(6){animation-delay:.4s}.card:nth-child(7){animation-delay:.48s}
+.card .no{transition:opacity .3s,-webkit-text-stroke-width .3s}
+.card:hover .no{opacity:1;-webkit-text-stroke-width:2px}
+@media(prefers-reduced-motion:reduce){.aurora i,.gridfloor,.scan{animation:none}}
+
+/* marquee */
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;background:rgba(10,10,18,.55);backdrop-filter:blur(6px)}
+.marquee div{display:flex;gap:48px;width:max-content;animation:mq 38s linear infinite;font-family:var(--display);font-size:2.6rem;letter-spacing:.08em;white-space:nowrap}
+.marquee span{color:transparent;-webkit-text-stroke:1px rgba(209,214,227,.45)}
+.marquee span:nth-child(even){color:var(--accent);-webkit-text-stroke:0}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* register */
+section.register{
+  padding:64px 5vw 36px;
+  text-align:center;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.register h2{font-family:var(--display);font-weight:400;font-size:clamp(3rem,9vw,8rem);line-height:.95}
+.register p{max-width:520px;margin:16px auto 0;color:var(--dim)}
+.register .cta{margin-top:24px}
+
+/* deadline callout badge */
+.deadline-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(255,92,138,.12);
+  border:1px solid rgba(255,92,138,.42);
+  color:#ff85a6;
+  padding:8px 20px;
+  border-radius:999px;
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:18px;
+  box-shadow:0 0 28px rgba(255,92,138,.24);
+}
+.deadline-badge strong{color:#fff;font-weight:600}
+.keys div.key-deadline{
+  border-left:2px solid var(--hot);
+  background:rgba(255,92,138,.08);
+}
+.keys div.key-deadline b{
+  color:var(--hot);
+  text-shadow:0 0 16px rgba(255,92,138,.45);
+}
+
+footer{
+  position:relative;
+  z-index:2;
+  margin:24px 3vw 24px;
+  padding:40px 5vw 32px;
+  text-align:center;
+  border-radius:20px;
+  background:rgba(5,5,9,.78);
+  backdrop-filter:blur(24px) saturate(1.5);
+  -webkit-backdrop-filter:blur(24px) saturate(1.5);
+  border:1px solid rgba(77,225,255,.12);
+  box-shadow:0 0 0 1px rgba(77,225,255,.08), 0 12px 48px rgba(0,0,0,.5);
+}
+footer p{margin-top:8px}
+footer p.mono{color:var(--ink);opacity:.88}
+footer p.mono a{color:var(--accent);text-decoration:none;transition:opacity .2s}
+footer p.mono a:hover{opacity:.8;text-decoration:underline}
+
+/* contact / dev view */
+.contact-dev{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;max-width:none;margin:0;padding:clamp(64px,8vh,96px) 5vw;background:radial-gradient(ellipse at 12% 16%,rgba(77,225,255,.2),transparent 36%),radial-gradient(ellipse at 88% 22%,rgba(160,107,255,.18),transparent 40%),radial-gradient(ellipse at 56% 94%,rgba(255,92,138,.14),transparent 42%),linear-gradient(135deg,rgba(5,5,9,.48),rgba(10,10,18,.52));backdrop-filter:blur(12px);border:0;text-align:left;visibility:hidden;opacity:0;pointer-events:none;transform:scale(.99);transition:opacity .35s ease,transform .35s ease,visibility .35s}
+.contact-dev:target{visibility:visible;opacity:1;pointer-events:auto;transform:scale(1)}
+.contact-content{position:relative;display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);width:min(100%,1120px);min-height:540px;margin:0 auto;overflow:hidden;border:1px solid rgba(209,214,227,.28);border-radius:24px;background:radial-gradient(ellipse at 12% 5%,rgba(77,225,255,.12),transparent 46%),radial-gradient(ellipse at 90% 88%,rgba(160,107,255,.12),transparent 48%),linear-gradient(130deg,rgba(255,255,255,.1),rgba(8,10,16,.36) 38%,rgba(15,18,32,.25));-webkit-backdrop-filter:blur(28px) saturate(1.5);backdrop-filter:blur(28px) saturate(1.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 24px 100px rgba(0,0,0,.36)}
+.contact-close{position:absolute;z-index:2;top:16px;right:16px;display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:rgba(8,10,16,.45);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--ink);font-size:1.5rem;text-decoration:none;line-height:1}
+.contact-close:hover{border-color:var(--accent);color:var(--accent)}
+.contact-lead{display:flex;flex-direction:column;justify-content:space-between;min-width:0;padding:clamp(28px,4vw,54px);background:radial-gradient(ellipse at 15% 10%,rgba(77,225,255,.2),transparent 54%),radial-gradient(ellipse at 90% 95%,rgba(255,92,138,.1),transparent 54%),linear-gradient(145deg,rgba(160,107,255,.08),rgba(77,225,255,.055) 55%,transparent);border-right:1px solid var(--line)}
+.contact-dev .sec-label{margin-bottom:28px}
+.contact-dev h2{font-family:var(--display);font-weight:400;font-size:clamp(3.2rem,6vw,5.6rem);line-height:.88;letter-spacing:.03em}
+.contact-dev h2 em{font-style:normal;color:var(--accent)}
+.contact-dev .sub{color:var(--dim);font-weight:300;max-width:340px;margin:20px 0 0;font-size:1rem}
+.contact-primary{display:block;margin-top:50px;padding:18px 0 0;border-top:1px solid rgba(77,225,255,.35);text-decoration:none}
+.contact-primary-label{display:block;margin-bottom:8px;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.contact-primary-value{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:clamp(.9rem,1.5vw,1.12rem);font-weight:500;color:var(--ink);overflow-wrap:anywhere}
+.contact-primary-value svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.contact-primary:hover .contact-primary-value svg{transform:translate(3px,-3px)}
+.contact-directory{display:flex;flex-direction:column;justify-content:center;gap:30px;min-width:0;padding:clamp(26px,4vw,50px)}
+.contact-column{padding:0;max-width:none;margin:0}
+.contact-column h3{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.contact-list{display:grid}
+.contact-item{display:grid;grid-template-columns:34px minmax(0,1fr) 16px;align-items:center;gap:12px;min-height:62px;padding:10px 2px;border-bottom:1px solid var(--line);text-decoration:none;transition:border-color .2s,transform .2s}
+.contact-item:hover{border-color:var(--accent);transform:translateX(3px)}
+.contact-icon{display:grid;place-items:center;width:32px;height:32px;color:var(--accent)}
+.contact-icon svg,.contact-arrow{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.contact-copy{display:grid;gap:2px;min-width:0}
+.contact-label{font-family:var(--mono);font-size:.59rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.contact-value{font-size:.84rem;font-weight:500;line-height:1.4;overflow-wrap:anywhere;color:var(--ink)}
+.contact-arrow{color:var(--dim);transition:color .2s,transform .2s}
+.contact-item:hover .contact-arrow{color:var(--accent);transform:translate(2px,-2px)}
+.contact-phone-toggle{width:100%;appearance:none;border:0;background:transparent;color:inherit;font-family:inherit;text-align:left;cursor:pointer}
+.contact-phone-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.contact-phone-toggle .contact-label{font-size:.68rem;font-weight:500;line-height:1.2;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.contact-phone-toggle[aria-expanded="true"] .contact-chevron{transform:rotate(180deg);color:var(--accent)}
+.contact-phone-toggle .contact-chevron{transition:transform .28s ease,color .2s}
+.contact-phone-menu{max-height:0;overflow:hidden;opacity:0;transition:max-height .32s ease,opacity .2s ease}
+.contact-phone-popout{position:static;width:auto;margin:8px 0 8px 46px;padding:8px;border:1px solid rgba(209,214,227,.22);border-radius:14px;background:rgba(12,14,23,.72);-webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.contact-phone-option{display:grid;grid-template-columns:32px minmax(0,1fr) 16px;align-items:center;gap:10px;padding:10px;border-radius:9px;text-decoration:none;transition:background .2s}
+.contact-phone-option:hover{background:rgba(77,225,255,.08)}
+.contact-phone-option .contact-icon{width:30px;height:30px}
+.contact-phone-option .contact-arrow{color:var(--dim)}
+.contact-phone-option:hover .contact-arrow{color:var(--accent)}
+.contact-social-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:hidden;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.contact-social{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;padding:14px 6px;color:var(--dim);font-family:var(--mono);font-size:.62rem;letter-spacing:.04em;text-decoration:none;transition:color .2s,background .2s}
+.contact-social+.contact-social{border-left:1px solid var(--line)}
+.contact-social:hover{color:var(--accent);background:rgba(77,225,255,.05)}
+.contact-social svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media(prefers-reduced-motion:reduce){.contact-phone-menu{transition:none}}
+@media(max-width:700px){.contact-dev{justify-content:flex-start;padding:74px 16px 24px}.contact-content{grid-template-columns:1fr;min-height:0}.contact-lead{min-height:300px;padding:28px;border-right:0;border-bottom:1px solid var(--line)}.contact-dev .sec-label{margin-bottom:22px}.contact-dev h2{font-size:clamp(3.2rem,15vw,5rem)}.contact-primary{margin-top:34px}.contact-directory{gap:26px;padding:26px 24px 30px}.contact-close{top:12px;right:12px;width:38px;height:38px}.contact-social{gap:5px;padding:13px 3px;font-size:.57rem}}
+.developer-credit{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;color:var(--dim);font-family:var(--mono);font-size:.68rem;letter-spacing:.08em}
+.developer-credit svg{width:15px;height:15px;flex:none;color:var(--accent)}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;overflow-y:auto;overscroll-behavior:contain;padding:5vh 4vw;
+  background:rgba(3,3,7,0);backdrop-filter:blur(0px);
+  display:none;opacity:0;
+  transition:opacity .35s,backdrop-filter .35s,background .35s}
+.modal.open{display:block}
+.modal.open.modal--in{opacity:1;background:rgba(3,3,7,.88);backdrop-filter:blur(18px)}
+.sheet{max-width:980px;margin:0 auto;border:1px solid var(--c);background:var(--bg2);position:relative;
+  padding:clamp(24px,5vw,60px);box-shadow:0 0 120px color-mix(in srgb,var(--c) 22%,transparent);
+  transform:translateY(48px) scale(.97);opacity:0;
+  transition:transform .5s cubic-bezier(.2,.9,.3,1),opacity .4s .05s}
+.modal.modal--in .sheet{transform:none;opacity:1}
+.close{position:absolute;top:16px;right:18px;background:none;border:1px solid var(--line);color:var(--ink);width:42px;height:42px;border-radius:50%;font-size:1.2rem;cursor:pointer}
+.close:hover{border-color:var(--c);color:var(--c)}
+.sheet .no{font-family:var(--display);font-size:1.2rem;color:var(--c);letter-spacing:.2em}
+.sheet h2{font-family:var(--display);font-weight:400;font-size:clamp(3rem,8vw,6rem);line-height:.95;letter-spacing:.03em;margin:6px 0 4px}
+.sheet .tagline{color:var(--dim);font-style:italic;font-weight:300;font-size:1.15rem}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:32px 0}
+.facts div{background:var(--bg2);padding:16px 18px}
+.facts dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.facts dd{margin-top:4px;font-weight:500}
+.sheet h4{font-family:var(--display);font-weight:400;font-size:1.7rem;letter-spacing:.08em;color:var(--c);margin:34px 0 12px}
+.sheet .mission{font-size:1.08rem}
+.sheet ul{list-style:none;display:grid;gap:10px}
+.sheet ul li{padding-left:26px;position:relative}
+.sheet ul li::before{content:"";position:absolute;left:0;top:.7em;width:12px;height:1px;background:var(--c)}
+.rule-groups{display:grid;gap:24px}
+.rule-group h5{font-family:var(--mono);font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin-bottom:10px}
+.crit{display:grid;gap:10px}
+.crit div{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:center}
+.crit .bar{grid-column:1/-1;height:3px;background:var(--line)}
+.crit .bar i{display:block;height:100%;background:var(--c)}
+.crit b{font-family:var(--display);font-weight:400;font-size:1.5rem;color:var(--c)}
+.contacts{display:flex;flex-wrap:wrap;gap:12px}
+.contacts a,.contacts span{border:1px solid var(--line);padding:10px 16px;border-radius:999px;text-decoration:none;font-size:.9rem}
+.contacts a:hover{border-color:var(--c);color:var(--c)}
+.notice{border:1px dashed var(--line);padding:18px 20px;color:var(--dim);margin-top:30px}
+.nav-ev{display:flex;justify-content:space-between;margin-top:44px;gap:12px}
+.nav-ev button{background:none;border:1px solid var(--line);color:var(--ink);padding:12px 20px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.nav-ev button:hover{border-color:var(--c);color:var(--c)}
+
+@media(max-width:840px){
+  nav{padding:14px 5vw}
+  nav .logo{font-size:1.25rem;gap:7px}
+  nav .logo #navmark{width:34px;height:34px}
+  .menu-toggle{position:relative;z-index:24;display:grid;place-items:center;width:44px;height:44px;flex:none;border:1px solid var(--line);background:rgba(10,10,18,.72);color:var(--ink);cursor:pointer;transition:border-color .25s,color .25s,background .25s}
+  .menu-toggle:hover,.menu-toggle:focus-visible{border-color:var(--accent);color:var(--accent)}
+  .menu-toggle:focus-visible,nav ul a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .menu-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+  .menu-toggle .menu-line{transform-origin:center;transition:transform .3s ease,opacity .2s ease}
+  .menu-toggle[aria-expanded="true"] .menu-line-top{transform:translateY(7px) rotate(45deg)}
+  .menu-toggle[aria-expanded="true"] .menu-line-middle{opacity:0}
+  .menu-toggle[aria-expanded="true"] .menu-line-bottom{transform:translateY(-7px) rotate(-45deg)}
+  nav ul{position:fixed;z-index:22;top:0;right:0;bottom:0;width:min(360px,86vw);overflow-y:auto;display:flex;flex-direction:column;gap:0;padding:104px 30px 32px;list-style:none;border-left:1px solid rgba(77,225,255,.22);background:radial-gradient(ellipse at 100% 0,rgba(77,225,255,.12),transparent 48%),rgba(5,5,9,.97);backdrop-filter:blur(24px);box-shadow:-24px 0 70px rgba(0,0,0,.5);transform:translateX(102%);visibility:hidden;pointer-events:none;transition:transform .38s cubic-bezier(.2,.8,.2,1),visibility .38s}
+  nav.menu-open ul{transform:translateX(0);visibility:visible;pointer-events:auto}
+  nav ul li{border-bottom:1px solid var(--line)}
+  nav ul a{display:block;padding:16px 4px;font-size:.82rem}
+  nav ul a:hover,nav ul a:focus-visible{color:var(--accent);transform:translateX(5px)}
+  .mobile-nav-backdrop{display:block;position:fixed;z-index:18;inset:0;width:100%;height:100%;border:0;background:rgba(0,0,0,.62);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s}
+  .mobile-nav-backdrop.open{opacity:1;visibility:visible;pointer-events:auto}
+  section{padding:80px 5vw}
+  footer{margin:30px 4vw 20px;padding:36px 4vw 28px;border-radius:16px}
+  .gl{grid-template-columns:1fr}
+  .gl-side{position:static}
+  .gl-group{padding-left:22px}
+  .emblem{width:min(30vh,260px)}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+
+/* Principal's message popup */
+.principal-overlay{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:clamp(64px,8vh,96px) 5vw;background:radial-gradient(ellipse at 12% 16%,rgba(77,225,255,.2),transparent 36%),radial-gradient(ellipse at 88% 22%,rgba(160,107,255,.18),transparent 40%),radial-gradient(ellipse at 56% 94%,rgba(255,92,138,.14),transparent 42%),linear-gradient(135deg,rgba(5,5,9,.48),rgba(10,10,18,.52));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;visibility:hidden;pointer-events:none;transform:scale(.99);transition:opacity .4s ease,transform .6s cubic-bezier(.2,.8,.2,1),visibility .4s}
+.principal-overlay.show{opacity:1;visibility:visible;pointer-events:auto;transform:scale(1)}
+.principal-frame{position:relative;width:min(860px,100%);height:min(80vh,900px)}
+.principal-panel{position:relative;width:100%;height:100%;max-height:none;overflow-y:auto;padding:clamp(26px,5vw,54px);border:1px solid rgba(209,214,227,.28);border-radius:24px;background:radial-gradient(ellipse at 12% 5%,rgba(77,225,255,.12),transparent 46%),radial-gradient(ellipse at 90% 88%,rgba(160,107,255,.12),transparent 48%),linear-gradient(130deg,rgba(255,255,255,.1),rgba(8,10,16,.36) 38%,rgba(15,18,32,.25));-webkit-backdrop-filter:blur(28px) saturate(1.5);backdrop-filter:blur(28px) saturate(1.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 90px rgba(77,225,255,.13),0 25px 90px rgba(0,0,0,.6);opacity:0;filter:blur(8px);transform:translateY(24px) scale(.975);transition:opacity .45s ease,filter .45s ease,transform .6s cubic-bezier(.2,.8,.3,1);scrollbar-width:none;-ms-overflow-style:none}
+.principal-panel::-webkit-scrollbar{display:none}
+.principal-scrollbar{position:absolute;z-index:2;top:50%;right:12px;width:6px;height:clamp(96px,22vh,150px);border-radius:999px;background:rgba(209,214,227,.09);transform:translateY(-50%);touch-action:none;cursor:pointer}
+.principal-scrollbar[hidden]{display:none}
+.principal-scroll-thumb{position:absolute;top:0;left:0;width:100%;height:44px;border-radius:999px;background:linear-gradient(180deg,rgba(77,225,255,.85),rgba(160,107,255,.75));box-shadow:0 0 12px rgba(77,225,255,.22);touch-action:none;cursor:grab}
+.principal-scroll-thumb:hover{background:linear-gradient(180deg,var(--accent),var(--accent2))}
+.principal-scroll-thumb:active{cursor:grabbing}
+.principal-overlay.show .principal-panel{opacity:1;filter:blur(0);transform:none}
+.principal-close{position:sticky;float:right;top:0;margin:-8px -8px 8px 14px;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:rgba(8,10,16,.8);color:var(--ink);font-size:1.5rem;cursor:pointer}
+.principal-close:hover{border-color:var(--accent);color:var(--accent)}
+.principal-kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.principal-panel h2{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,7vw,5rem);line-height:.95;letter-spacing:.03em;margin-bottom:8px}
+.principal-panel h2 span{color:var(--accent)}
+.principal-story{display:block;margin:12px 0 18px}
+.principal-photo{float:right;width:min(38%, 300px);margin:0 0 18px 24px;border:1px solid rgba(209,214,227,.2);border-radius:20px;overflow:hidden;background:linear-gradient(180deg,rgba(77,225,255,.08),rgba(160,107,255,.06));box-shadow:0 18px 54px rgba(7,10,18,.42);position:relative}
+.principal-photo img{display:block;width:100%;height:auto;object-fit:cover;aspect-ratio:4/3}
+.principal-quote{font-size:1rem;color:var(--dim);font-style:italic;margin:0 0 18px;padding-left:16px;border-left:2px solid var(--accent)}
+.principal-copy{font-size:clamp(.95rem,1.4vw,1.06rem);font-weight:300;line-height:1.85;color:var(--ink)}
+.principal-copy p{margin:0 0 16px}
+.principal-signoff{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.principal-actions{display:flex;justify-content:flex-end;margin-top:22px}
+.principal-read{border:1px solid var(--accent);background:var(--accent);color:#031015;padding:12px 20px;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.principal-read:hover{box-shadow:0 0 24px rgba(77,225,255,.25)}
+body.principal-open{overflow:hidden}
+@media(max-width:900px){.principal-photo{float:none;display:block;width:min(100%,360px);margin:0 auto 18px}}
+@media(max-width:600px){.principal-overlay{padding:74px 16px 24px}.principal-frame{height:calc(100vh - 98px);height:calc(100dvh - 98px)}.principal-panel{padding:24px 20px}.principal-close{width:38px;height:38px}.principal-quote{padding-left:12px}} 
+@media(prefers-reduced-motion:reduce){.principal-overlay,.principal-panel{transition:none}}
+
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="gridfloor" aria-hidden="true"></div>
+<canvas id="bg"></canvas>
+<div class="spot" id="spot" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+<div class="grain"></div>
+
+
+<!-- Principal's message popup -->
+<div class="principal-overlay" id="principalOverlay" aria-hidden="true">
+  <div class="principal-frame">
+  <section class="principal-panel" id="principalPanel" role="dialog" aria-modal="true" aria-labelledby="principalTitle">
+    <button class="principal-close" id="principalClose" type="button" aria-label="Close principal's message">&times;</button>
+    <p class="principal-kicker">A message from the Principal · Technovanza 12.0</p>
+    <h2 id="principalTitle">Principal’s <span>Message</span></h2>
+    <div class="principal-story">
+      <p class="principal-quote">“The most incomprehensible thing about the universe is that it is comprehensible.” — Albert Einstein</p>
+      <div class="principal-photo">
+        <img src="/assets/principal-sir.jpg" alt="Mr. Deepak Dua, Principal" loading="eager">
+      </div>
+      <div class="principal-copy">
+          <p>Perhaps this is the most compelling paradox of human existence: that the mind seeks to decipher a universe whose possibilities seem inexhaustible. Technology is the extraordinary consequence of this pursuit, evolving from an instrument of convenience into an inseparable dimension of human life. It is rewriting the rules of communication, reimagining the frontiers of knowledge and compelling us to envision what once lay beyond the realm of possibility.</p>
+      <p>At Bal Bharati Public School, Ganga Ram Hospital Marg, we regard technological proficiency not as an accomplishment in isolation but as a capacity to question convention, connect ideas and translate imagination into action. Our sustained endeavour has been to provide students with platforms where experimentation is encouraged, ingenuity finds expression and learning moves beyond the confines of the classroom.</p>
+      <p>The theme of TECHNOVANZA 12.0 — “Bridging Heritage and Innovation” — aims to bring yesterday’s wisdom into conversation with tomorrow’s possibilities. Events such as Smart Heritage, Smarter Future, Web Blueprint, Lens Legends and Ctrl+Create embody this confluence, challenging young minds to approach technology with both originality and purpose.</p>
+          <p>I earnestly hope that schools will participate wholeheartedly, bringing their finest ideas and youthful enterprise to this shared forum. May Technovanza 12.0 transcend the spirit of competition, widen the reach of technological learning and kindle collaborations that endure long after the curtains fall.</p>
+          <p>- Mr. Deepak Dua (Principal)</p>
+      </div>
+    </div>
+    <div class="principal-signoff">Bal Bharati Public School · Ganga Ram Hospital Marg</div>
+    <div class="principal-actions"><button class="principal-read" id="principalContinue" type="button">Continue to website&nbsp; ↗</button></div>
+  </section>
+  <div class="principal-scrollbar" role="scrollbar" aria-label="Message scroll position" aria-controls="principalPanel" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0" hidden>
+    <span class="principal-scroll-thumb"></span>
+  </div>
+  </div>
+</div>
+
+<div class="loader" id="loader">
+  <div class="loader-shell" role="status" aria-live="polite">
+    <div class="loader-mark"><div class="emblem" data-clone><img src="/assets/logo.png" alt=""></div></div>
+    <p class="loader-label">Loading Technovanza 12.0</p>
+    <div class="bar"><i id="lbar"></i></div>
+    <span class="count" id="count">00%</span>
+  </div>
+</div>
+
+<nav>
+  <a class="logo" href="#top"><span id="navmark" data-clone-static><img src="/assets/logo.png" alt="Technovanza 12.0 logo"></span>TECHNOVANZA 12.0</a>
+  <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path class="menu-line menu-line-top" d="M4 5h16"/><path class="menu-line menu-line-middle" d="M4 12h16"/><path class="menu-line menu-line-bottom" d="M4 19h16"/></svg>
+  </button>
+  <ul id="primary-navigation" aria-label="Main navigation">
+    <li><a href="#about">About</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#glance">At a glance</a></li>
+    <li><a href="#rules">Guidelines</a></li>
+    <li><a href="#register">Register</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+<button class="mobile-nav-backdrop" id="mobileNavBackdrop" type="button" aria-label="Close navigation menu" disabled></button>
+
+<header class="hero" id="top">
+  <div class="emblem float" id="emblem"><img src="/assets/logo.png" alt="Technovanza 12.0 logo"></div>
+  <p class="mono eyebrow rise" style="--d:1.2s">Interschool Tech Festival · Classes III–XII</p>
+  <h1 class="rise" style="--d:1.4s">TECHNOVANZA<span>12.0</span></h1>
+  <p class="sub rise" style="--d:1.6s">Seven events. One day. Where young minds code, design, report and hack their way to the trophy.</p>
+  <div class="meta rise" style="--d:1.8s">
+    <div><b>DATE</b>Thursday, 05 November 2026</div>
+    <div><b>VENUE</b>Bal Bharati Public School, Gangaram Hospital Marg, New Delhi 110060</div>
+    <div><b>REPORT</b>8:00 AM</div>
+  </div>
+  <a class="cta rise" style="--d:2s" href="#events">Explore the events</a>
+
+</header>
+
+<div class="marquee" aria-hidden="true"><div id="mq"></div></div>
+
+<main>
+<section id="about">
+  <div class="sec-head reveal"><p class="mono">/ 01 — The festival</p><h2>One day.<br><em>Seven</em> arenas.</h2></div>
+  <p class="reveal" style="max-width:720px;font-size:1.2rem;font-weight:300">Technovanza 12.0 is an inter-school computer festival held entirely offline. From futuristic news anchors to Capture-The-Flag cyber operations, every event is built around a real-world mission — pick the one that fits your class and take it on.</p>
+  <div class="stats reveal">
+    <div><strong>7</strong><span>Events in total</span></div>
+    <div><strong>10</strong><span>Classes eligible (III–XII)</span></div>
+    <div><strong>1</strong><span>Team per school, per event</span></div>
+    <div><strong>6</strong><span>Events needed for the Overall Trophy</span></div>
+  </div>
+</section>
+
+<section id="events">
+  <div class="sec-head reveal"><p class="mono">/ 02 — Competitions</p><h2>Choose your <em>mission</em></h2></div>
+  <div class="filters reveal" id="filters"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="glance">
+  <div class="sec-head reveal"><p class="mono">/ 03 — Quick reference</p><h2>Events at a <em>glance</em></h2></div>
+  <div class="table-wrap reveal"><table>
+    <thead><tr><th>Event</th><th>Classes</th><th>Participants</th><th>Venue</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table></div>
+</section>
+
+<section id="rules">
+  <div class="gl">
+    <aside class="gl-side reveal">
+      <p class="mono">/ 04 — Read before you register</p>
+      <h2>General <em>guidelines</em></h2>
+      <p class="lead">The ground rules every school and every team agrees to. Event-specific rules live inside each event.</p>
+      <div class="keys">
+        <div class="key-deadline"><span class="mono">Last date to Register</span><b>31 Oct 2026</b></div>
+        <div><span class="mono">Reporting</span><b>8:00 AM</b></div>
+        <div><span class="mono">Trophy needs</span><b>6+ events</b></div>
+      </div>
+      <a class="cta" href="https://forms.gle/q3xySiwbtn3Go7G38" target="_blank" rel="noopener">Register now</a>
+    </aside>
+    <div class="gl-main" id="glmain"></div>
+  </div>
+</section>
+
+<section class="register" id="register">
+  <div class="deadline-badge reveal">
+    Last date to register &middot; <strong>31 October 2026</strong>
+  </div>
+  <h2 class="reveal">Claim your <span style="color:var(--accent)">seat</span></h2>
+  <p class="reveal">One common form for all events, filled once by the school.<br><b>No on-the-spot registrations.</b></p>
+  <a class="cta reveal" id="regLink" href="https://forms.gle/q3xySiwbtn3Go7G38" target="_blank" rel="noopener">Register your school</a>
+</section>
+
+</main>
+
+<!-- contact / dev section -->
+<section class="contact-dev" id="contact" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+  <div class="contact-content">
+    <a class="contact-close" href="#top" aria-label="Close contact">&times;</a>
+    <div class="contact-lead">
+      <div>
+        <p class="mono sec-label">&frasl; 06 &mdash; Contact</p>
+        <h2 id="contactTitle">Let's <em>Talk.</em></h2>
+        <p class="sub">Questions? Reach out to the school.</p>
+      </div>
+      <a class="contact-primary" href="mailto:bbpsgrh@balbharati.org">
+        <span class="contact-primary-label">Email the school</span>
+        <span class="contact-primary-value">bbpsgrh@balbharati.org<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </a>
+    </div>
+    <div class="contact-directory">
+      <div class="contact-column" aria-label="School office details">
+        <h3>School Office</h3>
+        <div class="contact-list">
+          <a class="contact-item" href="https://bbpsgr.balbharati.org" target="_blank" rel="noopener">
+            <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span>
+            <span class="contact-copy"><span class="contact-label">Website</span><span class="contact-value">bbpsgr.balbharati.org</span></span>
+            <svg class="contact-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+          <button class="contact-item contact-phone-toggle" type="button" aria-expanded="false" aria-controls="schoolPhoneOptions">
+              <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg></span>
+              <span class="contact-copy"><span class="contact-label">Phone Numbers</span></span>
+              <svg class="contact-arrow contact-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="contact-phone-menu" id="schoolPhoneOptions" hidden>
+            <div class="contact-phone-popout">
+              <a class="contact-phone-option" href="tel:+911125786897">
+                <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg></span>
+                <span class="contact-copy"><span class="contact-label">Phone 1</span><span class="contact-value">011 2578 6897</span></span>
+                <svg class="contact-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+              <a class="contact-phone-option" href="tel:+911125782419">
+                <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg></span>
+                <span class="contact-copy"><span class="contact-label">Phone 2</span><span class="contact-value">011 2578 2419</span></span>
+                <svg class="contact-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-column" aria-label="School social profiles">
+        <h3>Follow the School</h3>
+        <div class="contact-social-links">
+          <a class="contact-social" href="https://www.instagram.com/bbps.grhm/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r=".8" fill="currentColor" stroke="none"/></svg>Instagram</a>
+          <a class="contact-social" href="https://www.facebook.com/bbpsgrh" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9a1 1 0 0 1 1-1Z"/></svg>Facebook</a>
+          <a class="contact-social" href="https://in.linkedin.com/school/bal-bharati-public-school-ganga-ram-hospital-marg/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v10M5 5v.01M9 19v-6a4 4 0 0 1 8 0v6M9 9v10"/></svg>LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo" style="font-family:var(--display);font-size:2rem;letter-spacing:.12em">TECHNOVANZA 12.0</div>
+  <p class="mono">Bal Bharati Public School · Gangaram Hospital Marg · New Delhi 110060</p>
+  <p class="mono"><a href="https://bbpsgr.balbharati.org" target="_blank" rel="noopener">bbpsgr.balbharati.org</a></p>
+  <p class="developer-credit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 17-5-5 5-5M16 7l5 5-5 5M14 4l-4 16"/></svg><span>Developed by Arahant Kumar &amp; Manan Agarwal</span></p>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="sheet" id="sheet"></div></div>
+
+<script>
+const EVENTS = [
+ { id:"tech-news", name:"Tech News Anchor", tag:"“Tech Today Live!”", color:"#4de1ff",
+   classes:"III–IV", team:"2–3 students", venue:"Auditorium", floor:"", medium:"English", group:"Junior",
+   mission:"Step into the shoes of a futuristic news anchor and bring a technology-themed news story to life with confidence, creativity, and imagination!",
+   ruleGroups:[
+    {title:"Story & News Format",rules:[
+     "Each team will take on the role of a futuristic television news team.",
+     "Teams may choose a fictional channel name such as Tech Today Live, Future News 2050, Digital Times, etc.",
+     "The news report must be based on a technology-themed scenario — fictional but believable.",
+     "Participants should present their report in the style of a professional television news broadcast.",
+     "The presentation should include a clear headline, news story and relevant details."]},
+    {title:"Presentation & Teamwork",rules:[
+     "All participants should have a meaningful role in the presentation.",
+     "The presentation should be conducted in English. Each team will get 3 minutes for the presentation. Marks will be deducted for exceeding the time limit.",
+     "Teams should demonstrate creativity, confidence, communication skills and effective use of technology."]},
+    {title:"Visuals & Content",rules:[
+     "Teams may use Microsoft PowerPoint or CANVA to create supporting visuals; background visuals, headlines, images and graphics may be used to make the news report engaging.",
+     "Participants should ensure that their content is original and age-appropriate.",
+     "Participants must carry a pen drive containing the required background visuals for AV support."]}],
+   crit:[["Content, Creativity & Imagination",5],["Confidence & Communication",5],["Use of Visuals / Technology",5],["Team Coordination & Overall Impact",5]],
+   contacts:[["Ms Megha Arora","8860303503"],["Ms Dipanshi","8700225485"]] },
+
+ { id:"smart-heritage", name:"Smart Heritage, Smarter Future", tag:"Digital poster in CANVA", color:"#ff9f43",
+   classes:"V–VI", team:"2 students", venue:"Primary Computer Lab", floor:"First Floor", medium:"English", group:"Junior",
+   mission:"Students will work in teams to design a vibrant DIGITAL POSTER using CANVA. The poster should showcase how modern technology and Artificial Intelligence (AI) can help preserve, protect, and promote India’s rich cultural heritage — illustrating a perfect harmony between tradition and innovation.",
+   ruleGroups:[
+    {title:"Theme & Concept",rules:[
+     "Step into the shoes of a Digital Heritage Designer! Teams will blend rich Indian traditions with modern AI technology to craft an inspiring digital poster.",
+     "The poster should visually showcase a futuristic, technology-driven solution that supports a smart and sustainable future for Indian art, monuments, languages, or traditions."]},
+    {title:"Design & Tools",rules:[
+     "Participants must use CANVA to design their poster, utilizing layout tools, copyright-free assets. Use of CANVA AI features (Magic Media/Magic Design) is permitted.",
+     "All elements used in the design — including icons, graphics, imagery, and text — must be copyright-free and age-appropriate.",
+     "Teams will be evaluated on creativity, concept development, visual aesthetics, effective tool usage, and the harmony between tradition and technology."]},
+    {title:"Team, Time & Language",rules:[
+     "Total time allotted to participants will be 1 hour.",
+     "Both team members must actively contribute to the design process and concept development.",
+     "The content, slogan, and text elements on the digital poster must be written entirely in English."]}],
+   crit:[["Relevance to Theme",5],["Visual Appeal & Creativity",5],["Use of CANVA features",5],["Originality & Slogan Impact",5]],
+   contacts:[["Ms Sugeet Malhotra","9899229895"]] },
+
+ { id:"web-blueprint", name:"Web Blueprint", tag:"Replicating a website using AI", color:"#a06bff",
+   classes:"VII–VIII", team:"2 students", venue:"Middle Computer Lab", floor:"Second Floor", medium:"Offline", group:"Middle",
+   mission:"Your goal is to build a website that looks just like the example website we show you at the start of the event. You will act as the “Project Manager,” and Artificial Intelligence (AI) will do the coding for you!",
+   ruleGroups:[
+    {title:"Challenge & Time",rules:[
+     "Teams will have to replicate an existing website.",
+     "The website will be announced on the spot.",
+     "Total time allotted to participants will be 2 hours."]},
+    {title:"Allowed AI Tools",rules:[
+     "Participants can use any beginner-friendly, visual AI web creators. We recommend v0.dev or Bolt.new.",
+     "ChatGPT, Claude and / or Gemini can be used to write text, paragraphs, or simple code blocks.",
+     "Canva AI is allowed for creating cool images to use on your site."]},
+    {title:"Originality & Presentation",rules:[
+     "Participating teams cannot look at or copy the real code of the example website. You must build it by describing it to the AI.",
+     "DO NOT copy code from websites on Google.",
+     "Every team gets 2 minutes to show their website to the judges."]}],
+   crit:[["The “Twins” Test (How closely does site match original?)",10],["Prompt Master (3 clever prompts shown to judges)",5],["Working (Hover colors, functional links)",5]],
+   contacts:[["Ms Bhawna Garg","7982348386"]] },
+
+ { id:"lens-legends", name:"Lens Legends", tag:"Hidden Geometry", color:"#ff5c8a",
+   classes:"VIII–X", team:"1–2 students", venue:"Junior Library", floor:"Third Floor", medium:"Offline", group:"Middle",
+   mission:"Hidden Geometry challenges participants to discover the geometric patterns, shapes, lines, symmetry and structure hidden in everyday surroundings. Participants must transform ordinary spaces and objects into visually striking photographs through creative observation and composition. The challenge is to find geometry where others simply see the ordinary.",
+   ruleGroups:[
+    {title:"Participation & Capture",rules:[
+     "Participation: As an individual or a team of two.",
+     "The time limit to submit the final photograph will be 1 hr 30 mins.",
+     "Participants must capture one photograph based on the theme — Hidden Geometry.",
+     "The photograph must be taken during the competition period at the designated venue.",
+     "Participants may use a mobile phone or digital camera.",
+     "The photograph should creatively highlight lines, shapes, patterns, symmetry, perspective, repetition or geometric structures."]},
+    {title:"Editing & Submission",rules:[
+     "Basic editing such as cropping, brightness, contrast and exposure adjustment is permitted.",
+     "AI-generated images, downloaded images and major digital manipulation are not permitted.",
+     "The photograph must be submitted within the given time limit."]},
+    {title:"Equipment & Decisions",rules:[
+     "Participants must carry their own equipment and devices for the event. The host school will not be providing anything for clicking pictures or for transferring the images or any editing software.",
+     "Judges' decision will be final and binding."]}],
+   crit:[["Use of Geometry",5],["Composition & Framing",5],["Technical Quality",5],["Visual Impact",5]],
+   contacts:[["Mr AVL Raghavendra","9654182010"],["Mr Ankush Sharma","9999067854"]] },
+
+ { id:"fastest-line-follower", name:"Fastest Line Follower", tag:"Build it. Tune it. Race it!", color:"#7dff9b",
+   classes:"VI–X", team:"2 students", venue:"ATL Room", floor:"Ground Floor", medium:"Offline", group:"Middle",
+   mission:"Build an autonomous robot that follows a line track from START to FINISH in the shortest time. The robot must run on its own, with no remote control and no human help once the run begins.",
+   ruleGroups:[
+    {title:"Robot Build & Specifications",rules:[
+     "The robot must be autonomous: once started, it must follow the line without any human input. The line can be circular or rectangular.",
+     "The robot must fit inside a box of 20 cm × 20 cm × 20 cm at all times, including at the start of each run. Its size may not change during a run.",
+     "Maximum allowed weight of the robot is 1.5 kg including the battery, with a 5% tolerance.",
+     "The robot must be able to move forward and turn left and right. It must also be able to stop on its own at the finish line.",
+     "Ready-made or pre-assembled robot kits are not allowed. The design, assembly, and programming must be mainly the team's own work. Any robotic parts, sensors, and building materials may be used.",
+     "Batteries must be sealed and leak-proof: Li-ion, Li-Po, NiMH, NiCd, gel cell, or dry cells. They must be firmly fixed to the robot, with no loose wires or exposed connections.",
+     "The voltage anywhere in the robot must not exceed 12.6 V DC at any time.",
+     "No wireless communication for operating the robot is allowed."]},
+    {title:"Safety & Track",rules:[
+     "Sharp edges, open blades, flames, liquids, and anything that could harm people or the track are strictly prohibited. Judges may disqualify any robot they consider unsafe.",
+     "The robot must not interfere with other robots (IR, magnetic, or any other kind), and must not damage or alter the track in any way. If a team believes another robot affected its run, it must show proof, and the Referee will confirm it. The Referee decides any interference claim.",
+     "Track: white (or light) matte surface with a black line about 2–3 cm wide. It may include curves, sharp turns, and intersections or gaps. The layout will be announced on the spot."]},
+    {title:"Race Procedure",rules:[
+     "Each team gets 2 attempts, and the best time counts.",
+     "The timer starts when the robot crosses the start line and stops when it crosses the finish line.",
+     "Teams place the robot at the START line, and then the Referee gives the signal. After that, the team may not touch the robot.",
+     "If the robot leaves the line completely for more than 3 seconds, the attempt ends. If a team touches or restarts the robot mid-run, the attempt ends.",
+     "Every robot goes through a size, weight, and voltage check before its first run."]},
+    {title:"Scoring & Decisions",rules:[
+     "Tie-breaker: The team with the better second-best time wins.",
+      "The Referee's and judges' decisions are final and binding on all teams."]},
+    {title:"Penalties",rules:[
+     "Disqualification: Unsafe robot or rule violation.",
+     "Warning, then disqualification: Damaging the track.",
+     "Attempt ends: Touching the robot during a run."]}],
+   crit:[["Speed (Fastest Time — proportional scoring)",5],["Line Following Accuracy",5],["Finish & Stop (at finish line)",5],["Design & Build Quality (wiring, sturdy body, originality)",5]],
+   contacts:[["Ms Archana Bindal","9818303048"]] },
+
+ { id:"ctrl-create", name:"Ctrl + Create", tag:"Your Challenge. Your Ideas. Your Creation", color:"#ffd84d",
+   classes:"IX–X", team:"2 students", venue:"Senior Library", floor:"First Floor", medium:"English", group:"Senior",
+   mission:"A real-world challenge is waiting for you! Think smart, design creatively, and build an AI-powered solution that truly helps your target audience. Your mission is to turn your idea into a powerful website and app prototype using CANVA — all within the given time.",
+   ruleGroups:[
+    {title:"Challenge & Deliverables",rules:[
+     "The specific theme, problem statement, and target audience will be revealed to all teams at the beginning of the competition.",
+     "Teams will have 60 minutes to develop a one-page scrolling website and 3–5 UI/app screens using CANVA.",
+     "The proposed AI-based solution must address the assigned problem and demonstrate how it benefits the identified stakeholders."]},
+    {title:"Tools & Restrictions",rules:[
+     "Participants must create their prototypes exclusively using CANVA. CANVA’s built-in AI tools, such as Magic Write and Magic Media, may be used to enhance their designs.",
+     "External generative AI tools, including ChatGPT, Gemini, and Midjourney, are strictly prohibited."]},
+    {title:"Submission, Presentation & Equipment",rules:[
+     "Teams must submit a view-only CANVA link to their completed design at the end of the 60-minute development period.",
+     "Following submission, each team will receive 5 minutes to present its problem statement, proposed solution, website, and app screens to the judges. Teams should explain how their solution addresses the needs of the target audience.",
+     "Participants are kindly requested to bring their own laptop, charger, and a device for internet connectivity to ensure a smooth and uninterrupted experience during the competition."]}],
+   crit:[["Problem-Solving & Solution Effectiveness",5],["Theme & Stakeholder Alignment",5],["UI/UX Design & Creativity",5],["Presentation",5]],
+   contacts:[["Ms Shilpi Chauhan Malik","7027127170"]], students:["Ryan Sindhi","Medha Gupta"] },
+
+ { id:"zero-day", name:"Zero Day: Operation Breach", tag:"Capture The Flag (CTF)", color:"#ff4d4d",
+   classes:"XI–XII", team:"2 students", venue:"Senior Computer Lab", floor:"Second Floor", medium:"—", group:"Senior",
+   mission:"Your goal is to solve a Jeopardy-style CTF by uncovering hidden flags, and progressing through three increasingly difficult levels. You will act as a cybersecurity operative, using logic and investigation skills to find the flag and complete the mission.",
+   ruleGroups:[
+    {title:"Challenges & Scoring",rules:[
+     "Participants must solve given challenges to discover flags, which must be submitted on the designated CTF platform for points.",
+     "Challenges may involve cryptography, encoding, web investigation, steganography, digital forensics, OSINT, and logical problem-solving.",
+     "Hints may be provided for selected challenges. Hint usage may carry a point penalty, as specified on the challenge.",
+     "The competition will be conducted for 90 minutes and will consist of three levels of progressively challenging cybersecurity puzzles."]},
+    {title:"Conduct, Equipment & Communication",rules:[
+     "Any attempt to disrupt the competition infrastructure, access unauthorised systems, or interfere with other participants will result in disqualification.",
+     "Participants must bring their own devices and ensure access to a reliable internet connection for the duration of the event.",
+     "Join the Discord server for announcements, support, and organiser communication: https://discord.gg/KZhYzUPYmM"]}],
+   crit:[["Difficulty of challenges completed",10],["Time taken to complete levels",5],["Number of flags discovered",5]],
+   contacts:[["Ms Ruchi Gupta","9582486131"]], students:["Manan Agarwal","Aahana Chawla"] }
+];
+
+const GENERAL = [
+ "Technovanza 12.0, an Inter-School Computer Festival, has SEVEN events in total. All events are held offline. Registrations are invited for all of them.",
+ "A common registration form covers all events and should be filled ONLY ONCE by the school. Online Form: <a href='https://forms.gle/q3xySiwbtn3Go7G38' target='_blank' rel='noopener' style='color:var(--accent);text-decoration:underline'>Click Here to Register</a> (also available on <a href='https://bbpsgr.balbharati.org' target='_blank' rel='noopener'>bbpsgr.balbharati.org</a>).",
+ "Only ONE TEAM per school may register for each event.",
+ "LAST DATE TO REGISTER IS <b style='color:var(--hot)'>31 OCTOBER 2026</b>.",
+ "A student can participate in ONLY ONE event, as the events are held simultaneously.",
+ "Registrations are first-come, first-served. On-the-spot registrations are not possible due to paucity of space.",
+ "REPORTING TIME for schools on the day of the event is 8:00 AM.",
+ "The host school participates in a non-competitive mode.",
+ "All participating students must be accompanied by a Teacher In-Charge from the school.",
+ "All teams must abide by activity-specific rules on time allotted, software permitted, and suggested theme.",
+ "For queries about a specific activity, contact the Teacher In-Charge only on working days between 5–6 pm.",
+ "The decision of the judges is final and binding.",
+ "The school scoring the maximum marks across all events wins the ‘Overall Winners Trophy’ — subject to participation in a minimum of 6 events.",
+ "Top 3 positions receive trophies and Merit Certificates. All participants receive Participation Certificates.",
+ "Results of all events are declared on the same day."
+];
+
+const $=s=>document.querySelector(s);
+const pad=n=>String(n+1).padStart(2,'0');
+
+// filters
+const groups=["All","Junior","Middle","Senior"];
+let filter="All";
+function renderFilters(){
+  $('#filters').innerHTML=groups.map(g=>`<button class="${g===filter?'on':''}" data-g="${g}">${g==='All'?'All events':g}</button>`).join('');
+}
+$('#filters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;filter=b.dataset.g;renderFilters();renderGrid()});
+function renderGrid(){
+  $('#grid').innerHTML=EVENTS.map((ev,i)=>({ev,i})).filter(({ev})=>filter==='All'||ev.group===filter||ev.group==='All').map(({ev,i})=>`
+  <button class="card" data-i="${i}" style="--c:${ev.color}">
+    <div class="no">${pad(i)}</div>
+    <h3>${ev.name}</h3>
+    <p class="tag">${ev.tag}</p>
+    <div class="chips"><span>Class ${ev.classes}</span><span>${ev.team}</span><span>${ev.venue}</span></div>
+    <div class="open">View rules →</div>
+  </button>`).join('');
+}
+$('#grid').addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openEv(+c.dataset.i)});
+$('#grid').addEventListener('pointermove',e=>{const c=e.target.closest('.card');if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
+
+$('#tbody').innerHTML=EVENTS.map((ev,i)=>`<tr data-i="${i}"><td>${ev.name}</td><td>${ev.classes}</td><td>${ev.team}</td><td>${ev.venue}${ev.floor?` <span style="color:var(--dim)">(${ev.floor})</span>`:''}</td></tr>`).join('');
+$('#tbody').addEventListener('click',e=>{const r=e.target.closest('tr');if(r)openEv(+r.dataset.i)});
+const GL_GROUPS=[
+ ["Registration","Before 31 Oct",[0,1,2,3,5]],
+ ["Participation","Teams & students",[4,7,8,9,10]],
+ ["On the day","Judging & awards",[6,11,12,13,14]]
+];
+// numbering follows reading order, so items are renumbered by the CSS counter
+$('#glmain').innerHTML=GL_GROUPS.map(([t,s,idx])=>`<div class="gl-group reveal"><h3>${t}<small>${s}</small></h3><ol>${idx.map(i=>`<li><span>${GENERAL[i]}</span></li>`).join('')}</ol></div>`).join('');
+
+// marquee
+$('#mq').innerHTML=[...EVENTS,...EVENTS].map(e=>`<span>${e.name}</span>`).join('');
+
+// emblem clones (loader animated, nav static)
+const srcSvg=$('#emblemSvg');
+function cloneEmblem(staticMode){
+  if(!srcSvg) return null;
+  const c=srcSvg.cloneNode(true);c.removeAttribute('id');c.querySelector('defs').remove();
+  if(staticMode){c.querySelectorAll('.flow').forEach(n=>n.remove());c.querySelectorAll('[class]').forEach(n=>{if(!n.classList.contains('headline'))n.removeAttribute('class');n.removeAttribute('style')})}
+  return c;
+}
+const navMark=$('#navmark');
+if(navMark && !navMark.querySelector('img') && srcSvg) navMark.appendChild(cloneEmblem(true));
+const ld=$('#loader'),le=ld.querySelector('[data-clone]');
+if(le && !le.querySelector('img') && srcSvg) le.appendChild(cloneEmblem(false));
+le && le.classList.add('ready');
+// ── loader: count up → clean fade out ─────────────────────────
+const countEl=$('#count');
+let pct=0;
+const lt=setInterval(()=>{
+  pct=Math.min(100,pct+3);
+  countEl.textContent=String(pct).padStart(2,'0')+'%';
+  $('#lbar').style.width=pct+'%';
+  if(pct>=100){
+    clearInterval(lt);
+    setTimeout(()=>{
+      ld.classList.add('done');
+      document.body.classList.add('ready');
+      setTimeout(()=>ld.remove(),750);
+    },300);
+  }
+},24);
+
+
+// Principal's message: show after the intro loader finishes
+(()=>{
+  const overlay=document.getElementById('principalOverlay');
+  const closeBtn=document.getElementById('principalClose');
+  const continueBtn=document.getElementById('principalContinue');
+  if(!overlay)return;
+  const panel=document.getElementById('principalPanel');
+  const scrollTrack=overlay.querySelector('.principal-scrollbar');
+  const scrollThumb=overlay.querySelector('.principal-scroll-thumb');
+  let dragStartY=0,dragStartScrollTop=0;
+  function updatePrincipalScrollbar(){
+    const maxScroll=panel.scrollHeight-panel.clientHeight;
+    scrollTrack.hidden=maxScroll<=0;
+    if(maxScroll<=0)return;
+    const travel=scrollTrack.clientHeight-scrollThumb.offsetHeight;
+    const progress=panel.scrollTop/maxScroll;
+    scrollThumb.style.transform=`translateY(${progress*travel}px)`;
+    scrollTrack.setAttribute('aria-valuenow',String(Math.round(progress*100)));
+  }
+  function scrollFromTrack(clientY){
+    const maxScroll=panel.scrollHeight-panel.clientHeight;
+    const travel=scrollTrack.clientHeight-scrollThumb.offsetHeight;
+    if(maxScroll<=0||travel<=0)return;
+    const rect=scrollTrack.getBoundingClientRect();
+    const position=Math.max(0,Math.min(1,(clientY-rect.top-scrollThumb.offsetHeight/2)/travel));
+    panel.scrollTop=position*maxScroll;
+    updatePrincipalScrollbar();
+  }
+  panel.addEventListener('scroll',updatePrincipalScrollbar,{passive:true});
+  window.addEventListener('resize',updatePrincipalScrollbar);
+  scrollTrack.addEventListener('pointerdown',e=>{
+    if(e.target===scrollThumb)return;
+    scrollFromTrack(e.clientY);
+  });
+  scrollThumb.addEventListener('pointerdown',e=>{
+    e.preventDefault();
+    dragStartY=e.clientY;
+    dragStartScrollTop=panel.scrollTop;
+    scrollThumb.setPointerCapture(e.pointerId);
+  });
+  scrollThumb.addEventListener('pointermove',e=>{
+    if(!scrollThumb.hasPointerCapture(e.pointerId))return;
+    const maxScroll=panel.scrollHeight-panel.clientHeight;
+    const travel=scrollTrack.clientHeight-scrollThumb.offsetHeight;
+    if(maxScroll>0&&travel>0){
+      panel.scrollTop=dragStartScrollTop+(e.clientY-dragStartY)*maxScroll/travel;
+      updatePrincipalScrollbar();
+    }
+  });
+  scrollTrack.addEventListener('keydown',e=>{
+    const step=Math.max(40,panel.clientHeight*.8);
+    const positions={ArrowDown:panel.scrollTop+40,ArrowUp:panel.scrollTop-40,PageDown:panel.scrollTop+step,PageUp:panel.scrollTop-step,Home:0,End:panel.scrollHeight};
+    if(!(e.key in positions))return;
+    e.preventDefault();
+    panel.scrollTop=positions[e.key];
+    updatePrincipalScrollbar();
+  });
+  let previousFocus=null;
+  function openPrincipal(){
+    previousFocus=document.activeElement;
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.classList.add('principal-open');
+    requestAnimationFrame(updatePrincipalScrollbar);
+    closeBtn.focus();
+  }
+  let popupShown=false;
+  function showPrincipalOnce(){
+    if(popupShown)return;
+    popupShown=true;
+    openPrincipal();
+  }
+  function closePrincipal(){
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden','true');
+    document.body.classList.remove('principal-open');
+    if(previousFocus && previousFocus.focus)previousFocus.focus();
+  }
+  closeBtn.addEventListener('click',closePrincipal);
+  continueBtn.addEventListener('click',closePrincipal);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closePrincipal()});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&overlay.classList.contains('show'))closePrincipal();
+  });
+  const heroCta=document.querySelector('.hero .cta');
+  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(heroCta&&!reducedMotion){
+    heroCta.addEventListener('animationend',e=>{
+      if(e.animationName==='rise2')setTimeout(showPrincipalOnce,450);
+    },{once:true});
+    window.addEventListener('load',()=>setTimeout(showPrincipalOnce,7500),{once:true});
+  }else{
+    window.addEventListener('load',()=>setTimeout(showPrincipalOnce,2400),{once:true});
+  }
+})();
+
+// emblem: pointer tilt
+(()=>{
+  const hero = $('#emblem');
+  if(!hero) return;
+  const target = hero.querySelector('img') || hero;
+  let tx=0,ty=0,cx=0,cy=0;
+  addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5)*2;ty=(e.clientY/innerHeight-.5)*2});
+  (function loop(){
+    cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;
+    target.style.transform=`perspective(900px) rotateY(${cx*14}deg) rotateX(${-cy*10}deg)`;
+    requestAnimationFrame(loop);
+  })();
+})();
+
+// modal
+let cur=0;
+function openEv(i){
+  cur=i;const ev=EVENTS[i];
+  const tel=p=>p?`<a href="tel:${p}">${p}</a>`:'';
+  const renderRule=r=>`<li>${r.replace(/(https?:\/\/\S+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:var(--c)">$1</a>')}</li>`;
+  const guidelines=ev.ruleGroups
+    ?`<div class="rule-groups">${ev.ruleGroups.map(group=>`<div class="rule-group"><h5>${group.title}</h5><ul>${group.rules.map(renderRule).join('')}</ul></div>`).join('')}</div>`
+    :`<ul>${ev.rules.map(renderRule).join('')}</ul>`;
+  $('#sheet').style.setProperty('--c',ev.color);
+  $('#sheet').innerHTML=`
+   <button class="close" aria-label="Close">✕</button>
+   <div class="no">EVENT ${pad(i)} / 07</div>
+   <h2>${ev.name}</h2><p class="tagline">${ev.tag}</p>
+   <dl class="facts">
+     <div><dt>Eligibility</dt><dd>Classes ${ev.classes}</dd></div>
+     <div><dt>Teams / school</dt><dd>One</dd></div>
+     <div><dt>Team size</dt><dd>${ev.team}</dd></div>
+     <div><dt>Venue</dt><dd>${ev.venue}${ev.floor?`<br><small style="color:var(--dim)">${ev.floor}</small>`:''}</dd></div>
+     ${ev.medium!=='—'?`<div><dt>Medium</dt><dd>${ev.medium}</dd></div>`:''}
+   </dl>
+   ${ev.tba?`<div class="notice">Detailed rules and judging criteria for this event will be announced soon. The general guidelines below the events list apply meanwhile.</div>`:`
+  <h4>The Big Mission</h4><p class="mission">${ev.mission}</p>
+  <h4>Guidelines</h4>${guidelines}
+   <h4>Judging criteria</h4><div class="crit">${ev.crit.map(([n,m])=>`<div><span>${n}</span><b>${m}</b><div class="bar"><i style="width:${m/ev.crit.reduce((a,c)=>a+c[1],0)*100}%"></i></div></div>`).join('')}</div>
+   <p class="mono" style="margin-top:10px">Total: ${ev.crit.reduce((a,c)=>a+c[1],0)} marks</p>`}
+   <h4>Contact</h4>
+   <div class="contacts">${ev.contacts.map(([n,p])=>`<${p?'a href="tel:'+p+'"':'span'}>${n}${p?' · '+p:''}</${p?'a':'span'}>`).join('')}${(ev.students||[]).map(s=>`<span>Student in-charge: ${s}</span>`).join('')}</div>
+   <div class="nav-ev"><button data-d="-1">← ${EVENTS[(i+6)%7].name}</button><button data-d="1">${EVENTS[(i+1)%7].name} →</button></div>`;
+  const modal=$('#modal');
+  modal.classList.add('open');
+  document.documentElement.style.overflow='hidden';
+  document.body.style.overflow='hidden';
+  modal.scrollTop=0;
+  // trigger spring-in on next paint
+  requestAnimationFrame(()=>requestAnimationFrame(()=>modal.classList.add('modal--in')));
+}
+function closeEv(){
+  const modal=$('#modal');
+  modal.classList.remove('modal--in');
+  modal.addEventListener('transitionend',()=>{
+    modal.classList.remove('open');
+    document.documentElement.style.overflow='';
+    document.body.style.overflow='';
+  },{once:true});
+}
+$('#modal').addEventListener('click',e=>{
+  if(e.target.id==='modal'||e.target.closest('.close'))return closeEv();
+  const b=e.target.closest('[data-d]');if(b)openEv((cur+ +b.dataset.d+7)%7);
+});
+addEventListener('keydown',e=>{
+  if(!$('#modal').classList.contains('open'))return;
+  if(e.key==='Escape')closeEv();
+  if(e.key==='ArrowRight')openEv((cur+1)%7);
+  if(e.key==='ArrowLeft')openEv((cur+6)%7);
+});
+
+const contactDialog=$('#contact'),contactClose=$('.contact-close'),contactLink=$('nav a[href="#contact"]');
+const phoneToggle=$('.contact-phone-toggle'),phoneMenu=$('#schoolPhoneOptions');
+let phoneMenuTimer;
+phoneToggle.addEventListener('click',()=>{
+  clearTimeout(phoneMenuTimer);
+  const expand=phoneToggle.getAttribute('aria-expanded')!=='true';
+  phoneToggle.setAttribute('aria-expanded',String(expand));
+  if(expand){
+    phoneMenu.hidden=false;
+    phoneMenu.style.maxHeight='0px';
+    phoneMenu.style.opacity='0';
+    void phoneMenu.offsetHeight;
+    requestAnimationFrame(()=>{
+      phoneMenu.style.maxHeight=`${phoneMenu.scrollHeight}px`;
+      phoneMenu.style.opacity='1';
+    });
+    return;
+  }
+  phoneMenu.style.maxHeight=`${phoneMenu.getBoundingClientRect().height}px`;
+  phoneMenu.style.opacity='1';
+  void phoneMenu.offsetHeight;
+  requestAnimationFrame(()=>{
+    phoneMenu.style.maxHeight='0px';
+    phoneMenu.style.opacity='0';
+  });
+  const hidePhoneMenu=()=>{if(phoneToggle.getAttribute('aria-expanded')==='false')phoneMenu.hidden=true};
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)hidePhoneMenu();
+  else phoneMenuTimer=setTimeout(hidePhoneMenu,350);
+});
+let contactWasOpen=location.hash==='#contact';
+function syncContactFocus(){
+  const isOpen=location.hash==='#contact';
+  if(isOpen&&!contactWasOpen)setTimeout(()=>contactClose.focus(),60);
+  else if(!isOpen&&contactWasOpen)(mobileView.matches?navToggle:contactLink).focus();
+  contactWasOpen=isOpen;
+}
+if(contactWasOpen)setTimeout(()=>contactClose.focus(),60);
+addEventListener('hashchange',syncContactFocus);
+addEventListener('keydown',e=>{
+  if(location.hash!=='#contact')return;
+  if(e.key==='Escape'){e.preventDefault();contactClose.click();return}
+  if(e.key!=='Tab')return;
+  const focusables=[...contactDialog.querySelectorAll('a[href],button:not([disabled])')];
+  const first=focusables[0],last=focusables[focusables.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+});
+
+renderFilters();renderGrid();
+
+// reveal on entry
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const navEl=document.querySelector('nav');
+const navToggle=$('.menu-toggle'),navLinks=$('#primary-navigation'),navBackdrop=$('#mobileNavBackdrop');
+const mobileView=matchMedia('(max-width:840px)');
+function setMobileMenu(open,restoreFocus=false){
+  navEl.classList.toggle('menu-open',open);
+  navToggle.setAttribute('aria-expanded',String(open));
+  navToggle.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');
+  navBackdrop.classList.toggle('open',open);
+  navBackdrop.disabled=!open;
+  if(open)setTimeout(()=>{if(navEl.classList.contains('menu-open'))navLinks.querySelector('a')?.focus()},60);
+  else if(restoreFocus&&mobileView.matches)navToggle.focus();
+}
+navToggle.addEventListener('click',()=>setMobileMenu(navToggle.getAttribute('aria-expanded')!=='true'));
+navBackdrop.addEventListener('click',()=>setMobileMenu(false,true));
+navLinks.addEventListener('click',e=>{if(e.target.closest('a'))setMobileMenu(false,true)});
+navEl.addEventListener('keydown',e=>{
+  if(!navEl.classList.contains('menu-open'))return;
+  if(e.key==='Escape'){e.preventDefault();setMobileMenu(false,true);return}
+  if(e.key!=='Tab')return;
+  const focusables=[navToggle,...navLinks.querySelectorAll('a')];
+  const first=focusables[0],last=focusables[focusables.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+});
+mobileView.addEventListener('change',e=>{if(!e.matches)setMobileMenu(false)});
+function updateNav(){navEl.classList.toggle('scrolled',scrollY>60)}
+updateNav();
+addEventListener('scroll',updateNav,{passive:true});
+// ── magnetic buttons ─────────────────────────────────────────────
+// Uses document-level pointermove so the pull starts BEFORE cursor
+// enters the element (otherwise it only fires when already inside).
+(()=>{
+  const PULL=0.45, RANGE=110;
+  const targets=[...document.querySelectorAll('.cta, nav ul a')];
+  const active=new WeakMap(); // el → bool
+
+  window.addEventListener('pointermove',e=>{
+    targets.forEach(el=>{
+      const r=el.getBoundingClientRect();
+      const cx=r.left+r.width/2, cy=r.top+r.height/2;
+      const dx=e.clientX-cx, dy=e.clientY-cy;
+      const dist=Math.hypot(dx,dy);
+      if(dist<RANGE){
+        const pull=1-dist/RANGE; // stronger near centre
+        el.style.transition='transform .1s linear';
+        el.style.transform=`translate(${dx*PULL*pull}px,${dy*PULL*pull}px)`;
+        active.set(el,true);
+      } else if(active.get(el)){
+        active.set(el,false);
+        el.style.transition='transform .55s cubic-bezier(.2,.9,.3,1)';
+        el.style.transform='';
+      }
+    });
+  },{ passive:true });
+})();
+
+// background: drifting particle network
+(()=>{
+  const cv=$('#bg'),ctx=cv.getContext('2d');let W,H,P=[],mx=.5,my=.5;
+  const dpr=Math.min(devicePixelRatio||1,1.5);
+  function size(){W=cv.width=innerWidth*dpr;H=cv.height=innerHeight*dpr;P=Array.from({length:Math.min(90,Math.max(18,Math.round(innerWidth*innerHeight/30000)))},()=>({x:Math.random()*W,y:Math.random()*H,z:Math.random()*.9+.1,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15}))}
+  size();addEventListener('resize',size);
+  addEventListener('pointermove',e=>{mx=e.clientX/innerWidth;my=e.clientY/innerHeight});
+  const still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    const g=ctx.createRadialGradient(W*.5,H*.35,0,W*.5,H*.4,W*.7);
+    g.addColorStop(0,'rgba(77,225,255,.07)');g.addColorStop(.6,'rgba(160,107,255,.04)');g.addColorStop(1,'transparent');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    for(const p of P){
+      if(!still){p.x+=p.vx;p.y+=p.vy}
+      const x=((p.x+(mx-.5)*60*p.z*dpr)%W+W)%W, y=((p.y+(my-.5)*40*p.z*dpr)%H+H)%H;
+      p.sx=x;p.sy=y;
+      ctx.fillStyle=`rgba(209,214,227,${.15+p.z*.6})`;
+      ctx.beginPath();ctx.arc(x,y,p.z*1.6*dpr,0,6.283);ctx.fill();
+    }
+    const L=130*dpr;
+    for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){
+      const a=P[i],b=P[j],dx=a.sx-b.sx,dy=a.sy-b.sy,d=dx*dx+dy*dy;
+      if(d<L*L){ctx.strokeStyle=`rgba(77,225,255,${(1-Math.sqrt(d)/L)*.18})`;ctx.lineWidth=dpr*.6;ctx.beginPath();ctx.moveTo(a.sx,a.sy);ctx.lineTo(b.sx,b.sy);ctx.stroke()}
+    }
+    if(!still)requestAnimationFrame(frame)
+  }
+  frame();
+})();
+
+// ===== extra background motion =====
+(()=>{
+  const spot=$('#spot');
+  addEventListener('pointermove',e=>{spot.style.setProperty('--sx',e.clientX+'px');spot.style.setProperty('--sy',e.clientY+'px')});
+  // section top-lines
+  const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('seen')}),{threshold:.1});
+  document.querySelectorAll('section').forEach(x=>so.observe(x));
+  // headline scramble on reveal
+  const glyphs='01<>/{}[]#$%&*+=?';
+  const sc=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;sc.unobserve(e.target);
+    const el=e.target,walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT),nodes=[];
+    while(walker.nextNode())nodes.push([walker.currentNode,walker.currentNode.textContent]);
+    let f=0;const id=setInterval(()=>{f++;
+      nodes.forEach(([n,t])=>{n.textContent=[...t].map((c,i)=>c===' '||i<f*1.4-4?c:glyphs[Math.floor(Math.random()*glyphs.length)]).join('')});
+      if(f>t_max(nodes)){clearInterval(id);nodes.forEach(([n,t])=>n.textContent=t)}},35)}),{threshold:.5});
+  const t_max=ns=>Math.ceil(Math.max(...ns.map(([,t])=>t.length))/1.4)+4;
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.querySelectorAll('.sec-head h2,.gl-side h2,.register h2').forEach(h=>sc.observe(h));
+  // 3D tilt on cards
+  $('#grid').addEventListener('pointermove',e=>{const c=e.target.closest('.card');if(!c)return;const r=c.getBoundingClientRect();
+    c.style.transform=`perspective(700px) rotateX(${-((e.clientY-r.top)/r.height-.5)*8}deg) rotateY(${((e.clientX-r.left)/r.width-.5)*8}deg) translateY(-6px)`});
+  $('#grid').addEventListener('pointerout',e=>{const c=e.target.closest('.card');if(c)c.style.transform=''});
+})();
+
+// canvas extras: data packets travelling the network + shooting stars + binary rain
+(()=>{
+  const cv=document.createElement('canvas');cv.style.cssText='position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none';
+  document.body.insertBefore(cv,$('#bg').nextSibling);
+  const ctx=cv.getContext('2d');let W,H,cols=[],stars=[];const dpr=Math.min(devicePixelRatio||1,1.5);
+  function size(){W=cv.width=innerWidth*dpr;H=cv.height=innerHeight*dpr;
+    cols=Array.from({length:Math.floor(innerWidth/52)},(_,i)=>({x:i*52*dpr+10*dpr,y:Math.random()*H,v:(.6+Math.random()*1.4)*dpr,t:Math.random()<.5?'0':'1'}))}
+  size();addEventListener('resize',size);
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  setInterval(()=>{if(stars.length<3)stars.push({x:Math.random()*W*.9,y:Math.random()*H*.35,vx:(9+Math.random()*7)*dpr,vy:(4+Math.random()*4)*dpr,life:1})},3600);
+  ctx.font=`${13*dpr}px JetBrains Mono, monospace`;
+  (function frame(){
+    ctx.clearRect(0,0,W,H);
+    ctx.font=`${13*dpr}px JetBrains Mono, monospace`;
+    for(const c of cols){
+      c.y+=c.v;if(c.y>H+20){c.y=-20;c.x=Math.random()*W}
+      for(let k=0;k<7;k++){ctx.fillStyle=`rgba(77,225,255,${.1*(1-k/7)})`;ctx.fillText(Math.random()<.5?'0':'1',c.x,c.y-k*16*dpr)}
+    }
+    for(let i=stars.length-1;i>=0;i--){const s=stars[i];s.x+=s.vx;s.y+=s.vy;s.life-=.012;
+      const g=ctx.createLinearGradient(s.x,s.y,s.x-s.vx*9,s.y-s.vy*9);g.addColorStop(0,`rgba(255,255,255,${s.life})`);g.addColorStop(1,'transparent');
+      ctx.strokeStyle=g;ctx.lineWidth=2*dpr;ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(s.x-s.vx*9,s.y-s.vy*9);ctx.stroke();
+      if(s.life<=0)stars.splice(i,1)}
+    requestAnimationFrame(frame)})();
+})();
+</script>
+</body>
+</html>
